@@ -1,1 +1,63 @@
-@import 'tailwindcss';
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  /* background-color: #1f1f1f; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.calculater {
+  width: 287px;
+  border: 1px solid #333;
+  background-color: #ccc;
+  padding: 5px;
+}
+
+.calculater form {
+  display: grid;
+  grid-template-columns: repeat(4, 65px);
+  grid-auto-rows: 65px;
+  grid-gap: 5px;
+}
+
+.calculater form input {
+  border: 2px solid #333;
+  cursor: pointer;
+  font-size: 19px;
+}
+
+.calculater form input:hover {
+  box-shadow: 1px 1px 2px #333;
+}
+
+.calculater form .clear {
+  background-color: #ed4848;
+}
+
+.calculater form .operator {
+  background-color: orange;
+}
+
+.calculater form .dot {
+  background-color: green;
+}
+
+.calculater form input[type='text'] {
+  grid-column: span 4;
+  text-align: right;
+  padding: 0 10px;
+}
+
+.calculater form .clear {
+  grid-column: span 3;
+}
+
+.calculater form .result {
+  grid-column: span 2;
+}
