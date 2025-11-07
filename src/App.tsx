@@ -1,110 +1,27 @@
 import { useState } from 'react'
+import Step4Effect from './components/Step4Effect'
 
 const App = () => {
-  const [state, setState] = useState({
-    currentNumber: '0',
-    // 키         : 값
-    previousNumber: '',
-    operation: null,
-    isNewNumber: true,
-  })
+  const [showTimer, setShowTimer] = useState<boolean>(true)
 
-  const handleClear = () => {
-    console.log('clear')
-  }
-  const handleDot = () => {
-    console.log('dot')
-  }
-
-  //<HTMLInputElement, MouseEvent> 여기 안에서 발생되는 이벤트만 작동
-  const handleNumber = (
-    event: React.MouseEvent<HTMLInputElement, MouseEvent>
-  ) => {
-    console.log(event.currentTarget.value)
-    const value = event.currentTarget.value
-    if (state.isNewNumber) {
-      // 숫자 덮어쓰기
-      setState({
-        ...state,
-        currentNumber: value,
-        isNewNumber: false,
-      })
-    }
-    //숫자 이어붙이기
-    // ... state 숙지하기**
-    else {
-      setState({
-        ...state,
-        currentNumber: state.currentNumber + value,
-      })
-    }
-  }
-
-  const handleOperator = (
-    event: React.MouseEvent<HTMLInputElement, MouseEvent>
-  ) => {
-    operation
-    console.log(event.currentTarget.value)
+  const toggleTimer = () => {
+    setShowTimer(prev => !prev)
   }
 
   return (
-    <article className="calculater">
-      <form name="forms">
-        <input type="text" name="output" value={state.currentNumber} readOnly />
-
-        <input
-          type="button"
-          className="clear"
-          value="C"
-          onClick={handleClear}
-        />
-        <input
-          type="button"
-          className="operator"
-          value="/"
-          onClick={handleOperator}
-        />
-        <input type="button" value="1" onClick={handleNumber} />
-        <input type="button" value="2" onClick={handleNumber} />
-        <input type="button" value="3" onClick={handleNumber} />
-        <input
-          type="button"
-          className="operator"
-          value="*"
-          onClick={handleOperator}
-        />
-        <input type="button" value="4" onClick={handleNumber} />
-        <input type="button" value="5" onClick={handleNumber} />
-        <input type="button" value="6" onClick={handleNumber} />
-        <input
-          type="button"
-          className="operator"
-          value="+"
-          onClick={handleOperator}
-        />
-        <input type="button" value="7" onClick={handleNumber} />
-        <input type="button" value="8" onClick={handleNumber} />
-        <input type="button" value="9" onClick={handleNumber} />
-        <input
-          type="button"
-          className="operator"
-          value="-"
-          onClick={handleOperator}
-        />
-        <input type="button" className="dot" value="." onClick={handleDot} />
-        <input type="button" value="0" onClick={handleNumber} />
-        <input
-          type="button"
-          className="operator result"
-          value="="
-          onClick={handleOperator}
-        />
-      </form>
-    </article>
+    <div>
+      <h1>클린업 함수 동작 확인</h1>
+      <button onClick={toggleTimer}>
+        {showTimer ? '타이머 숨기기' : '타이머 보이기'}
+      </button>
+      {showTimer && <Step4Effect />}
+      <p>
+        버튼을 눌러 위 타이머 컴포넌트(Step4Effect)를 숨기거나 보이게 해보세요.
+        <br />
+        콘솔을 열어보시면 클린업 함수가 언제 실행되는지 알 수 있습니다.
+      </p>
+    </div>
   )
 }
 
 export default App
-
-//데이터 바인딩 *연결
-//엑셀에서 시트별로 연동하는 방식이랑 비슷한 것
