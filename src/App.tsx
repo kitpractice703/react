@@ -1,25 +1,48 @@
 import { useState } from 'react'
-import Step4Effect from './components/Step4Effect'
+import TodoEditor from './components/TodoEditor'
+import TodoHeader from './components/TodoHeader'
+import TodoList from './components/TodoList'
 
 const App = () => {
-  const [showTimer, setShowTimer] = useState<boolean>(true)
+  const [todos, setTodos] = useState<Todo[]>([])
 
-  const toggleTimer = () => {
-    setShowTimer(prev => !prev)
+  const addTodo = (title: string) => {
+    setTodos(todos => [
+      ...todos,
+      //생성되면 부모에게 알려주는 것
+      {
+        id: new Date().getTime(),
+        //id는 Number만 들어가는데 왜 시간이 들어가느냐?
+        //day, time 은 숫자계산이 가능.
+        title,
+        done: false,
+      },
+    ])
   }
 
   return (
-    <div>
-      <h1>클린업 함수 동작 확인</h1>
-      <button onClick={toggleTimer}>
-        {showTimer ? '타이머 숨기기' : '타이머 보이기'}
-      </button>
-      {showTimer && <Step4Effect />}
-      <p>
-        버튼을 눌러 위 타이머 컴포넌트(Step4Effect)를 숨기거나 보이게 해보세요.
-        <br />
-        콘솔을 열어보시면 클린업 함수가 언제 실행되는지 알 수 있습니다.
-      </p>
+    <div className="todo">
+      <TodoHeader />
+      {/* <h1 className="todo__title">Todo List</h1>
+      <p className="todo__subtitle">Please enter your details to continue.</p> */}
+      <TodoEditor addTodo={addTodo} />
+      {/* 할 일 등록 */}
+      {/* <form className="todo__form">
+        <div className="todo__editor">
+          <Input
+            type="text"
+            className="todo__input"
+            placeholder="Enter Todo List"
+          />
+          <Button className="todo__button" type="submit">
+            Add
+          </Button>
+          {/* html 컴포넌트에서 가져와서 했음 */}
+      {/* 의미에 대해 자세히 확인하기  */}
+      {/* button > Button 변경됨 */}
+      {/* </div>
+      </form> */}
+      <TodoList todos={todos} />
     </div>
   )
 }
